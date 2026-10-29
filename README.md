@@ -104,7 +104,7 @@ on x86_64 or another Python version. The default detector uses FP16 with a
 ### 1. Clone this repository and the pinned Robonix source
 
 ```bash
-git clone https://github.com/kaileliu/robot-agilex-piper-rk3588.git
+git clone https://github.com/syswonder/robot-agilex-piper-rk3588.git
 cd robot-agilex-piper-rk3588
 
 git clone https://github.com/syswonder/robonix.git vendor/robonix
@@ -339,7 +339,7 @@ bash containers/piper/run.sh -e \
 
 This checks the manifest without running the package's start command. The
 container entry point itself prepares the ROS/Zenoh environment. Repository
-[GitHub Actions](https://github.com/kaileliu/robot-agilex-piper-rk3588/actions)
+[GitHub Actions](https://github.com/syswonder/robot-agilex-piper-rk3588/actions)
 run strict catalog preflight validation; see the
 [submission preparation guide](docs/PACKAGE_SUBMISSION.md) for rules and reports.
 
@@ -402,9 +402,8 @@ This repository is prepared according to the
 - Cover images and icons are optional and currently omitted. Local credentials,
   caches, logs, and build directories are excluded from publication.
 
-**The current stage is source-repository preparation only; official catalog
-listing is not being requested.** Once submission is explicitly confirmed, add
-name/repo/path entries to the official `catalog.yaml`. Package source belongs in
+Catalog registration uses name/repo/path entries in the official
+`catalog.yaml`, all pointing to this repository under `syswonder`. Package source belongs in
 this repository, not in the catalog repository. See
 [PACKAGE_SUBMISSION.md](docs/PACKAGE_SUBMISSION.md) for validation commands, the
 dependency inventory, and source-export instructions.

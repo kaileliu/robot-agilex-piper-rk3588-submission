@@ -1,8 +1,7 @@
 # Piper Package Catalog 接入与提交准备
 
-源码仓库：<https://github.com/kaileliu/robot-agilex-piper-rk3588>，默认分支 `main`。
-当前阶段只维护并提交源码仓库，**不创建 catalog 收录 PR**；未来由用户明确确认后
-再执行下面的收录步骤。
+源码仓库：<https://github.com/syswonder/robot-agilex-piper-rk3588>，默认分支 `main`。
+Catalog 收录通过官方仓库的 PR 提交；源码及资源保留在本源码仓库。
 
 本项目按 [官方 catalog](https://github.com/syswonder/robonix-package-catalog)
 的当前规则接入：整机清单必须在仓库根目录，普通包可通过 catalog `path:` 收录同一
@@ -84,7 +83,7 @@ git -C /tmp/robonix-package-catalog checkout 65cf91c32acb52e0ec72ff7ef4a003c02c7
 # 校验当前公开源码仓库的提交准备。
 /tmp/piper-catalog-venv/bin/python scripts/check_package_submission.py \
   --catalog-source /tmp/robonix-package-catalog \
-  --repo https://github.com/kaileliu/robot-agilex-piper-rk3588
+  --repo https://github.com/syswonder/robot-agilex-piper-rk3588
 /tmp/piper-catalog-venv/bin/python scripts/export_package_submission.py
 ```
 
@@ -98,9 +97,9 @@ git -C /tmp/robonix-package-catalog checkout 65cf91c32acb52e0ec72ff7ef4a003c02c7
 将 additions 中的 `packages`/`robots` 条目合并进 catalog 现有同名列表，不能覆盖已有
 列表或增加第二个顶层同名键。Catalog PR 只提交其 `catalog.yaml` 的这些新增条目。
 
-当前源码仓库已经公开，校验默认使用真实仓库地址。新建目录条目的工作仍留在本地
-`dist/catalog/catalog.additions.yaml`，本轮不创建或重新打开官方 PR。未来确认收录时，
-先检查源码仓库默认分支，再以真实 `--repo` 重新预检、提交仅修改 `catalog.yaml` 的 PR。
+当前源码仓库已经公开，校验默认使用真实仓库地址。新增条目生成于
+`dist/catalog/catalog.additions.yaml`。提交前检查源码仓库默认分支，
+再以真实 `--repo` 重新预检，提交仅修改 `catalog.yaml` 的 PR。
 官方 CI 将使用 GitHub API 重新读取实际内容，包括当时的 Robonix 全局契约、文件树
 和图片。源码仓库 Actions 通过与官方收录 PR 的 CI 通过是两项独立的检查。
 
