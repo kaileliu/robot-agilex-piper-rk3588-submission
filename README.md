@@ -115,7 +115,7 @@ git -C vendor/robonix submodule update --init --recursive
 ```
 
 Robonix source is fetched separately; see [vendor/PINS.md](vendor/PINS.md) for the
-pinned revision. ROS drivers, services, and skills are included under `packages/`.
+pinned revision. ROS drivers, services, and skills are included under `primitives/`, `services/`, and `skills/`.
 Their upstream default branches are not cloned during build or startup, so
 upstream changes do not silently replace this deployment's modifications.
 
@@ -230,6 +230,11 @@ grasping is ready.
 
 ## Start and use
 
+The root `build.sh` and `start.sh` scripts run the same container commands shown
+below with `robonix_manifest.local.yaml`. Complete configuration and calibration
+before starting the robot.
+
+
 Run the inference backend, Robonix stack, and operator interface in separate
 terminals.
 
@@ -336,7 +341,7 @@ bridge.
 ```bash
 # Example: validate the arm package. Other paths are in catalog/package-paths.json.
 bash containers/piper/run.sh -e \
-  'cd /root/workspace && rbnx validate packages/primitives/primitive-agilex-piper-arm-rbnx'
+  'cd /root/workspace && rbnx validate primitives/primitive-agilex-piper-arm-rbnx'
 ```
 
 This checks the manifest without running the package's start command. The
@@ -433,22 +438,24 @@ for them. For driver, calibration, and deployment log diagnostics, see the
 ## Repository layout
 
 ```text
-robonix_manifest.yaml              Root deployment entry point for installation/catalog
-catalog/package-paths.json         Inventory of the 11 bundled package directories
-packages/primitives/              Arm, camera, description, and audio primitives
-packages/services/                Detection, grasp poses, IK, and speech
-packages/skills/                  Piper vertical-grasp skill
-yolo_npu/                         RKNN models, runtime, HTTP server, and regression tests
-containers/piper/                 ROS 2 Humble / Robonix image and container entry points
-soma.yaml, soma_config.yaml       Root body and Soma process configuration
-urdf/piper.urdf                   Piper arm and gripper model
-assets/promo/01.jpg               Deployment photograph for the catalog
-host-services/funasr/             Optional host ASR and model download scripts
-tools/calibration/                Intrinsics, planar hand-eye mapping, and verification
+assets/promo/01.jpg                Deployment photograph for the catalog
+config/                           Soma and calibration configuration
+urdf/piper.urdf                    Piper arm and gripper model
+primitives/                       Arm, camera, description, and audio primitives
+services/                         Detection, grasp poses, IK, and speech
+skills/                           Piper vertical-grasp skill
 scripts/                          Catalog validation and filtered source export
-.github/workflows/                Source repository CI
-docs/                            Package submission preparation
+tools/calibration/                Intrinsics, hand-eye mapping, and verification
+containers/piper/                 ROS 2 Humble image and container entry points
+host-services/funasr/              Optional host ASR and model download scripts
+yolo_npu/                         NPU models, runtime, HTTP server, and tests
+catalog/                          Package inventory and publication policy
+docs/                             Submission preparation and source provenance
 vendor/PINS.md                    Pinned Robonix source acquisition instructions
+.github/workflows/                Source repository CI
+build.sh, start.sh                Container build and boot entry points
+soma.yaml                         Root body description
+robonix_manifest.yaml              Root deployment and whole-robot catalog entry
 ```
 
 Publication is restricted by `catalog/publication.json`. Runtime dependencies,
@@ -464,6 +471,6 @@ conditions, including Apache-2.0 drivers and the
 [RKNN SDK License](yolo_npu/vendor/RKNN-LICENSE).
 
 - [Robonix](https://github.com/syswonder/robonix) and its [documentation](https://book.robonix.ai/): runtime, contracts, Soma, and deployment conventions.
-- [packages/UPSTREAMS.md](packages/UPSTREAMS.md): upstream revisions and local package modifications.
+- [docs/UPSTREAMS.md](docs/UPSTREAMS.md): upstream revisions and local package modifications.
 - [SOURCES.md](SOURCES.md): deployment provenance and adaptation history.
 - [yolo_npu/SOURCES.md](yolo_npu/SOURCES.md): weights, RKNN SDK/runtime provenance, versions, and checksums.

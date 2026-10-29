@@ -9,9 +9,9 @@ Catalog 收录通过官方仓库的 PR 提交；源码及资源保留在本源�
 都放在本整机仓库，由官方 CI 读取默认分支。整机封面使用 `assets/promo/01.jpg`（1600×1000、8-bit RGB JPEG、低于 2 MB）。
 
 根入口为 `robonix_manifest.yaml`，发布名 `robonix.robot.agilex.piper_rk3588`。
-它与 `deploy/piper/manifest.local.yaml` 的现场入口分开；不替换正在使用的本地清单。
+机器专用参数保留在忽略发布的 `robonix_manifest.local.yaml`；不提交本地密钥。
 新入口的相对包路径全在本仓库内，Soma 使用根目录 `soma.yaml`、
-`soma_config.yaml` 和 `urdf/piper.urdf`。
+`config/soma.yaml` 和 `urdf/piper.urdf`。
 
 ## 收录范围
 
@@ -25,16 +25,16 @@ Catalog 收录通过官方仓库的 PR 提交；源码及资源保留在本源�
 
 | 目录（相对仓库根） | 用途 | 接口 |
 | --- | --- | --- |
-| packages/primitives/primitive-orbbec-dabai_dcw-camera-rbnx | Gemini 336L，部署覆盖 launch 文件 | ROS 2 图像/内参，gRPC 生命周期 |
-| packages/primitives/primitive-agilex-piper-arm-rbnx | Piper CAN 控制及反馈 | ROS 2，gRPC 生命周期 |
-| packages/primitives/primitive-agilex-piper-description-rbnx | URDF、TF 发布 | 内部 ROS 2 TF，不声明路由能力 |
-| packages/primitives/primitive-audio-mic-rbnx | 本机 ALSA 麦克风 | gRPC |
-| packages/primitives/primitive-audio-client-bridge-rbnx | 操作员端麦克风/扬声器桥 | gRPC，内部 WebSocket |
-| packages/services/service-object-detect-rbnx | HTTP YOLO / VLM 检测适配 | MCP，gRPC 生命周期 |
-| packages/services/service-grasp-pose-rbnx | 像素到抓取位姿 | gRPC |
-| packages/services/service-roboarm-ik-rbnx | Python IK 及动作执行 | gRPC |
-| packages/services/service-speech | ASR/TTS/对话 | gRPC，MCP 的 speak/list_speakers |
-| packages/skills/skill-pick-vertical-grasp-piper-rbnx | pick/demo/grab/put_in_box/put_down | MCP，gRPC 生命周期 |
+| primitives/primitive-orbbec-dabai_dcw-camera-rbnx | Gemini 336L，部署覆盖 launch 文件 | ROS 2 图像/内参，gRPC 生命周期 |
+| primitives/primitive-agilex-piper-arm-rbnx | Piper CAN 控制及反馈 | ROS 2，gRPC 生命周期 |
+| primitives/primitive-agilex-piper-description-rbnx | URDF、TF 发布 | 内部 ROS 2 TF，不声明路由能力 |
+| primitives/primitive-audio-mic-rbnx | 本机 ALSA 麦克风 | gRPC |
+| primitives/primitive-audio-client-bridge-rbnx | 操作员端麦克风/扬声器桥 | gRPC，内部 WebSocket |
+| services/service-object-detect-rbnx | HTTP YOLO / VLM 检测适配 | MCP，gRPC 生命周期 |
+| services/service-grasp-pose-rbnx | 像素到抓取位姿 | gRPC |
+| services/service-roboarm-ik-rbnx | Python IK 及动作执行 | gRPC |
+| services/service-speech | ASR/TTS/对话 | gRPC，MCP 的 speak/list_speakers |
+| skills/skill-pick-vertical-grasp-piper-rbnx | pick/demo/grab/put_in_box/put_down | MCP，gRPC 生命周期 |
 | yolo_npu | RK3588 NPU HTTP 推理后端 | 宿主 HTTP 支持进程，无 Atlas 能力 |
 
 完整机器可通过文字命令使用抓取链路；语音需另外启动宿主 FunASR。音频桥与本机
