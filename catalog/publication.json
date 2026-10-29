@@ -9,9 +9,6 @@
     "robonix_manifest.yaml",
     "catalog/",
     "containers/piper/",
-    "deploy/piper/soma.yaml",
-    "deploy/piper/soma_config.yaml",
-    "deploy/piper/urdf/",
     "docs/PACKAGE_SUBMISSION.md",
     "host-services/README.md",
     "host-services/funasr/",
@@ -33,7 +30,11 @@
     "packages/services/service-roboarm-ik-rbnx/",
     "packages/services/service-speech/",
     "packages/skills/skill-pick-vertical-grasp-piper-rbnx/",
-    "yolo_npu/"
+    "yolo_npu/",
+    "assets/",
+    "urdf/",
+    "soma.yaml",
+    "soma_config.yaml"
   ],
   "exclude": [
     "yolo_npu/models/*.onnx",

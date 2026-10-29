@@ -45,8 +45,8 @@ system:
     listen: 127.0.0.1:50091
     log: info
     provider_id: soma
-    robot_yaml: deploy/piper/soma.yaml
-    config: deploy/piper/soma_config.yaml
+    robot_yaml: soma.yaml
+    config: soma_config.yaml
 primitive:
 - name: orbbec_camera
   path: packages/primitives/primitive-orbbec-dabai_dcw-camera-rbnx
@@ -132,7 +132,7 @@ service:
 - name: roboarm_ik
   path: packages/services/service-roboarm-ik-rbnx
   config:
-    urdf_path: ${PIPER_WORKSPACE}/deploy/piper/urdf/piper.urdf
+    urdf_path: ${PIPER_WORKSPACE}/urdf/piper.urdf
     init_joints_deg:
     - -90.0
     - 0.0
@@ -171,7 +171,7 @@ service:
     funasr_remote_url: ws://127.0.0.1:8771
     wake_words:
     - 罗伯特
-    asr_log_file: /root/workspace/deploy/piper/rbnx-boot/logs/asr_transcripts.log
+    asr_log_file: /root/workspace/rbnx-boot/logs/asr_transcripts.log
     speech_tts_backend_class: speech_service.service:MockTTSBackend
     tencent_tts_voice_type: 1001
     tencent_tts_region: ap-guangzhou
@@ -201,7 +201,7 @@ skill:
     grab_vlm_base_url: https://api.ofox.io/v1
     grab_vlm_api_key: <YOUR_LLM_API_KEY>
     grab_vlm_model: gpt-5.6-sol
-    runtime_config_file: /root/workspace/deploy/piper/rbnx-boot/runtime_config.txt
+    runtime_config_file: /root/workspace/rbnx-boot/runtime_config.txt
     demo_pos_a:
     - 0.25
     - 0.0

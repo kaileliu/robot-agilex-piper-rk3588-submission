@@ -15,12 +15,14 @@ independent validation of the current hardware calibration has not passed.
 Physical object grasping has not been validated.** This repository provides a
 deployment template that needs site-specific configuration. Historical
 calibration matrices and motion poses must be revalidated for each installation.
-Cover images and demo media are currently omitted.
+Demo media is currently omitted.
 
 [Capabilities](#capabilities) · [Architecture](#architecture) ·
 [Installation](#installation) · [Configuration and calibration](#configuration-and-calibration) ·
 [Start and use](#start-and-use) · [Validation](#validation) · [Stop](#stop) ·
 [Package Catalog integration](#package-catalog-integration) · [Troubleshooting](#troubleshooting)
+
+![AgileX Piper arm and parallel gripper on the deployment workbench](assets/promo/01.jpg)
 
 ## Capabilities
 
@@ -74,8 +76,8 @@ The `llm_detect` service can use the same HTTP backend. The skill's default YOLO
 path calls the host detector directly. The NPU support package exposes no Atlas
 contract and is not started in the container's `service:` list.
 
-Body hierarchy and description are in [soma.yaml](deploy/piper/soma.yaml), and
-transforms and geometry are in the [Piper URDF](deploy/piper/urdf/piper.urdf).
+Body hierarchy and description are in [soma.yaml](soma.yaml), and
+transforms and geometry are in the [Piper URDF](urdf/piper.urdf).
 System and package configuration live in the root
 [robonix_manifest.yaml](robonix_manifest.yaml). Packages call each other through
 contract IDs; provider IDs and catalog package names are separate identifiers.
@@ -394,16 +396,18 @@ This repository is prepared according to the
 - Robot catalog name `robonix.robot.agilex.piper_rk3588`; `catalog:` supplies
   version, description, license, tags, and maintainers.
 - Dependencies are included and referenced through repository-relative paths.
-  Ten Robonix packages and a separate NPU support package each provide a
+  Ten bundled Robonix packages and a separate NPU support package each provide a
   `package_manifest.yaml`, README, and the contracts/IDL and resources they need.
 - Local variants use the `.piper_rk3588` package-name suffix to avoid colliding
   with upstream entries. Provider and contract IDs are preserved. Every declared
   capability specifies its actual transport.
-- Cover images and icons are optional and currently omitted. Local credentials,
-  caches, logs, and build directories are excluded from publication.
+- The deployment cover is `assets/promo/01.jpg` (1600×1000 JPEG). An icon is
+  optional. Local credentials, caches, logs, and build directories are excluded
+  from publication.
 
-Catalog registration uses name/repo/path entries in the official
-`catalog.yaml`, all pointing to this repository under `syswonder`. Package source belongs in
+This deployment is submitted as **A whole robot**, with one entry under
+`robots:` in the official `catalog.yaml`. Its bundled dependencies resolve
+inside this repository and do not require separate catalog entries. Package source belongs in
 this repository, not in the catalog repository. See
 [PACKAGE_SUBMISSION.md](docs/PACKAGE_SUBMISSION.md) for validation commands, the
 dependency inventory, and source-export instructions.
@@ -430,13 +434,15 @@ for them. For driver, calibration, and deployment log diagnostics, see the
 
 ```text
 robonix_manifest.yaml              Root deployment entry point for installation/catalog
-catalog/package-paths.json         Inventory of the 11 published package directories
+catalog/package-paths.json         Inventory of the 11 bundled package directories
 packages/primitives/              Arm, camera, description, and audio primitives
 packages/services/                Detection, grasp poses, IK, and speech
 packages/skills/                  Piper vertical-grasp skill
 yolo_npu/                         RKNN models, runtime, HTTP server, and regression tests
 containers/piper/                 ROS 2 Humble / Robonix image and container entry points
-deploy/piper/                     Soma configuration and URDF
+soma.yaml, soma_config.yaml       Root body and Soma process configuration
+urdf/piper.urdf                   Piper arm and gripper model
+assets/promo/01.jpg               Deployment photograph for the catalog
 host-services/funasr/             Optional host ASR and model download scripts
 tools/calibration/                Intrinsics, planar hand-eye mapping, and verification
 scripts/                          Catalog validation and filtered source export

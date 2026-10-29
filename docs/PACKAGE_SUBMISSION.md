@@ -6,14 +6,18 @@ Catalog 收录通过官方仓库的 PR 提交；源码及资源保留在本源�
 本项目按 [官方 catalog](https://github.com/syswonder/robonix-package-catalog)
 的当前规则接入：整机清单必须在仓库根目录，普通包可通过 catalog `path:` 收录同一
 仓库的子目录。Catalog PR 只修改其根目录 `catalog.yaml`；清单、README、契约与资源
-都放在本整机仓库，由官方 CI 读取默认分支。图片是可选项，本次不放占位图。
+都放在本整机仓库，由官方 CI 读取默认分支。整机封面使用 `assets/promo/01.jpg`（1600×1000、8-bit RGB JPEG、低于 2 MB）。
 
 根入口为 `robonix_manifest.yaml`，发布名 `robonix.robot.agilex.piper_rk3588`。
 它与 `deploy/piper/manifest.local.yaml` 的现场入口分开；不替换正在使用的本地清单。
-新入口的相对包路径全在本仓库内，Soma 使用 `deploy/piper/soma.yaml`、
-`deploy/piper/soma_config.yaml` 和 `deploy/piper/urdf/piper.urdf`。
+新入口的相对包路径全在本仓库内，Soma 使用根目录 `soma.yaml`、
+`soma_config.yaml` 和 `urdf/piper.urdf`。
 
 ## 收录范围
+
+本次使用 **A whole robot**，只在 `robots:` 中登记
+`robonix.robot.agilex.piper_rk3588`。下列依赖随整机源码一起提供，
+通过仓库内相对路径解析，不另外新增 `packages:` 条目。
 
 为了保留本项目修改、不覆盖已收录的上游包，10 个 Robonix 依赖的 `package.name`
 使用 `.piper_rk3588` 后缀。provider ID、能力 contract ID 和调用路径不变。
@@ -94,7 +98,7 @@ git -C /tmp/robonix-package-catalog checkout 65cf91c32acb52e0ec72ff7ef4a003c02c7
 `dist/` 自身不会递归进入导出。导出不会更改源项目的 Git 状态。
 
 发布后，本仓库 Actions 会以同一官方校验器执行预检并上传报告。
-将 additions 中的 `packages`/`robots` 条目合并进 catalog 现有同名列表，不能覆盖已有
+将 additions 中唯一的 `robots` 条目合并进 catalog 现有 `robots:` 列表，不能覆盖已有
 列表或增加第二个顶层同名键。Catalog PR 只提交其 `catalog.yaml` 的这些新增条目。
 
 当前源码仓库已经公开，校验默认使用真实仓库地址。新增条目生成于
